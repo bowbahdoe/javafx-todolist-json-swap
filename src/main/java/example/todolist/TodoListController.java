@@ -112,7 +112,7 @@ public class TodoListController
         Json list = Json.of(this.todoList.getItems());
         try (var writer = new FileWriter(Paths.get("todolist.json").toFile()))
         {
-            Json.write(list, writer);
+            Json.write(list, writer, new Json.WriteOptions().withIndentation(4));
         }
         catch (IOException e)
         {
