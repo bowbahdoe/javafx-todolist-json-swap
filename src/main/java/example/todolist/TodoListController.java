@@ -109,12 +109,7 @@ public class TodoListController
 
     public void writeToDoListToFile()
     {
-        Json list = Json.of(
-                this.todoList.getItems()
-                        .stream()
-                        .map(ToDoItem::toJson)
-                        .toList()
-        );
+        Json list = Json.of(this.todoList.getItems());
         try (var writer = new FileWriter(Paths.get("todolist.json").toFile()))
         {
             Json.write(list, writer);
@@ -129,6 +124,7 @@ public class TodoListController
             String name,
             ToDoCategory category,
             LocalDate date)
+        implements ToJson
     {
         public String getCategory()
         {
@@ -145,6 +141,7 @@ public class TodoListController
             return this.date.toString();
         }
 
+        @Override
         public Json toJson() {
             return Json.objectBuilder()
                     .put("name", name)
